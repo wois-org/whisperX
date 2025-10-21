@@ -1,6 +1,4 @@
-import hashlib
 import os
-import urllib
 from typing import Callable, Text, Union
 from typing import Optional
 
@@ -12,10 +10,13 @@ from pyannote.audio.pipelines import VoiceActivityDetection
 from pyannote.audio.pipelines.utils import PipelineModel
 from pyannote.core import Annotation, SlidingWindowFeature
 from pyannote.core import Segment
-from tqdm import tqdm
 
 from whisperx.diarize import Segment as SegmentX
 from whisperx.vads.vad import Vad
+from whisperx.log_utils import get_logger
+
+logger = get_logger(__name__)
+
 
 def load_vad_model(device, vad_onset=0.500, vad_offset=0.363, use_auth_token=None, model_fp=None):
     model_dir = torch.hub._get_torch_home()
@@ -234,7 +235,7 @@ class VoiceActivitySegmentation(VoiceActivityDetection):
 class Pyannote(Vad):
 
     def __init__(self, device, use_auth_token=None, model_fp=None, **kwargs):
-        print(">>Performing voice activity detection using Pyannote...")
+        logger.info("Performing voice activity detection using Pyannote...")
         super().__init__(kwargs['vad_onset'])
         self.vad_pipeline = load_vad_model(device, use_auth_token=use_auth_token, model_fp=model_fp)
 
@@ -259,7 +260,7 @@ class Pyannote(Vad):
             segments_list.append(SegmentX(speech_turn.start, speech_turn.end, "UNKNOWN"))
 
         if len(segments_list) == 0:
-            print("No active speech found in audio")
+            logger.warning("No active speech found in audio")
             return []
         assert segments_list, "segments_list is empty."
         return Vad.merge_chunks(segments_list, chunk_size, onset, offset)
