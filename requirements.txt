@@ -1,8 +1,14 @@
 torch~=2.8.0
 torchaudio~=2.8.0
-faster-whisper==1.1.0
-ctranslate2<4.5.0
-transformers
-pandas
+faster-whisper==1.1.1
+ctranslate2>=4.5.0
+transformers>=4.48.0
+pandas>=2.2.3,<2.3.0
 setuptools>=65
-nltk
+nltk>=3.9.1
+numpy>=2.0.2,<2.1.0; python_version <'3.13'
+numpy>=2.1.0,<2.3.0; python_version >='3.13'
+onnxruntime>=1.19,<1.20.0; python_version <'3.10'
+triton>=3.3.0; sys_platform == 'linux' and platform_machine == 'x86_64'
+av<16.0.0
+pyannote-audio>=3.3.2,<4.0.0
