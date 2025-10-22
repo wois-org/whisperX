@@ -39,7 +39,6 @@ DEFAULT_ALIGN_MODELS_TORCH = {
 DEFAULT_ALIGN_MODELS_HF = {
     "cy": "WAV2VEC2_ASR_BASE_960H",
     "lt": "DeividasM/wav2vec2-large-xlsr-53-lithuanian",
-    "lv": "infinitejoy/wav2vec2-large-xls-r-300m-latvian",
     "ja": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese",
     "zh": "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
     "nl": "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
